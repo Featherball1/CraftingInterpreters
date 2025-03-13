@@ -1,6 +1,6 @@
 #include "keywords.h"
 
-std::map<std::string, TokenType> str_literal_to_lox_keywords = {
+std::map<std::string, lox::TokenType> lox::str_literal_to_lox_keywords = {
 	{"and", TokenType::AND},
 	{"class", TokenType::CLASS},
 	{"else", TokenType::ELSE},

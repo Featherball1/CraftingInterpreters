@@ -8,7 +8,7 @@ int main(int argc, const char* argv[]) {
 	
 	std::cout << "argc: " << argc << ", argv: " << argv[1] << std::endl;
 
-	Lox lox;
+	lox::Lox lox;
 	lox.lox_main(argc, argv);
 
 	return 0;

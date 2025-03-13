@@ -1,7 +1,7 @@
 #include "tokentype.h"
 
 // Map enum to string literal for printing purposes during debugging
-std::map<TokenType, std::string> token_type_to_str_literal = {
+std::map<lox::TokenType, std::string> lox::token_type_to_str_literal = {
 	{LEFT_PAREN, "LEFT_PAREN"},
 	{RIGHT_PAREN, "RIGHT_PAREN"},
 	{LEFT_BRACE, "LEFT_BRACE"},

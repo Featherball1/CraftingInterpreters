@@ -1,12 +1,12 @@
 #include "scanner.h"
 
-Scanner::Scanner(std::string source) : source(source) {}
+lox::Scanner::Scanner(std::string source) : source(source) {}
 
-bool Scanner::is_at_end() {
+bool lox::Scanner::is_at_end() {
 	return (current >= source.length());
 }
 
-void Scanner::scan_token() {
+void lox::Scanner::scan_token() {
 	char c = advance();
 
 	/*
@@ -102,28 +102,28 @@ void Scanner::scan_token() {
 }
 
 
-char Scanner::advance() {
+char lox::Scanner::advance() {
 	return source.at(current++);
 }
 
-bool Scanner::match(char expected) {
+bool lox::Scanner::match(char expected) {
 	if (is_at_end()) { return false; }
 	if (source.at(current) != expected) { return false; }
 	current++;
 	return true;
 }
 
-char Scanner::peek() {
+char lox::Scanner::peek() {
 	if (is_at_end()) { return 0; }
 	return source.at(current);
 }
 
-char Scanner::peek_next() {
+char lox::Scanner::peek_next() {
 	if (current + 1 >= source.length()) { return '\0'; }
 	return source.at(current + 1);
 }
 
-void Scanner::string() {
+void lox::Scanner::string() {
 	// Lox supports multi-line strings, so if we see a \n inside the string literal we need to increment line
 	while (peek() != '"' && !is_at_end()) {
 		if (peek() == '\n') { line++; }
@@ -145,19 +145,19 @@ void Scanner::string() {
 	add_token(TokenType::STRING, value);
 }
 
-bool Scanner::is_digit(char c) {
+bool lox::Scanner::is_digit(char c) {
 	return c >= '0' && c <= '9';
 }
 
-bool Scanner::is_alpha(char c) {
+bool lox::Scanner::is_alpha(char c) {
 	return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
 }
 
-bool Scanner::is_alphanumeric(char c) {
+bool lox::Scanner::is_alphanumeric(char c) {
 	return is_alpha(c) || is_digit(c);
 }
 
-void Scanner::number() {
+void lox::Scanner::number() {
 	while (is_digit(peek())) { advance(); }
 	// Check if the number has a decimal point and consume it if it does
 	if (peek() == '.' && is_digit(peek_next())) {
@@ -168,7 +168,7 @@ void Scanner::number() {
 	add_token(TokenType::NUMBER, stod(source.substr(start, current - start)));
 }
 
-void Scanner::identifier() {
+void lox::Scanner::identifier() {
 	while (is_alphanumeric(peek())) { advance(); }
 	
 	std::string text = source.substr(start, current - start);
@@ -177,7 +177,7 @@ void Scanner::identifier() {
 	add_token(type);
 }
 
-void Scanner::block_comment() {
+void lox::Scanner::block_comment() {
 	while (!is_at_end()) {
 		char c = advance();
 
@@ -190,16 +190,16 @@ void Scanner::block_comment() {
 	error(line, "Could not find end of block comment");
 }
 
-void Scanner::add_token(TokenType type) {
+void lox::Scanner::add_token(TokenType type) {
 	add_token(type, NULL);
 }
 
-void Scanner::add_token(TokenType type, lox_literal_t literal) {
+void lox::Scanner::add_token(TokenType type, lox_literal_t literal) {
 	std::string text = source.substr(start, current - start);
 	tokens.push_back(Token(type, text, literal, line));
 }
 
-std::vector<Token> Scanner::scan_tokens() {
+std::vector<lox::Token> lox::Scanner::scan_tokens() {
 	while (!is_at_end()) {
 		start = current;
 		scan_token();

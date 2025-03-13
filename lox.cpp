@@ -1,8 +1,8 @@
 #include "lox.h"
 
-Lox::Lox() : had_error(false) {}
+lox::Lox::Lox() : had_error(false) {}
 
-void Lox::lox_main(int argc, const char* argv[]) {
+void lox::Lox::lox_main(int argc, const char* argv[]) {
 	/*
 	if (args.length > 1) {
 		There were too many arguments
@@ -29,7 +29,7 @@ void Lox::lox_main(int argc, const char* argv[]) {
 	}
 }
 
-void Lox::run_file(std::string filepath) {
+void lox::Lox::run_file(std::string filepath) {
 	if (had_error) { exit(2); }
 
 	std::ifstream t(filepath);
@@ -37,16 +37,9 @@ void Lox::run_file(std::string filepath) {
 	input_buffer << t.rdbuf();
 
 	std::cout << input_buffer.str() << std::endl;
-	
-	Scanner scanner(input_buffer.str());
-
-	std::vector<Token> tokens = scanner.scan_tokens();
-	for (auto token : tokens) {
-		std::cout << "Token " << token.to_string() << ", " << std::endl;
-	}
 }
 
-void Lox::run_prompt() {
+void lox::Lox::run_prompt() {
 	while (true) {
 		// Reset error flag to avoid killing the session if user makes a mistake
 		had_error = false;
@@ -68,6 +61,6 @@ void Lox::run_prompt() {
 	}
 }
 
-void Lox::run(std::string source) {
+void lox::Lox::run(std::string source) {
 
 }

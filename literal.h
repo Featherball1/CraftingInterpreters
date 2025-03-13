@@ -8,9 +8,11 @@ This allows us to refer to a lox literal in general without getting more granula
 about the type information
 */
 
-typedef std::variant<
-	int,
-	bool,
-	double,
-	std::string
-> lox_literal_t;
+namespace lox {
+	typedef std::variant<
+		int,
+		bool,
+		double,
+		std::string
+	> lox_literal_t;
+}
