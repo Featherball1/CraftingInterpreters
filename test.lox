@@ -1,0 +1,15 @@
+// This is a comment
+
+var a = 1;
+
+/* This is a block comment */
+
+while (a < 10) {
+  /*
+      In lox, we can have print without brackets!
+  */
+  print a;
+  a = a + 1;
+  // Even more comments!
+}
+
